@@ -1,5 +1,7 @@
 ## Core War
 
+Original subject can be found [here](https://zone01normandie.org/git/root/public/src/branch/master/subjects/corewar).
+
 ### Introduction
 
 Back in 1984 D. G. Jones had the brilliant idea to create a programming game inspired by how some viruses manage to take over a system and their internal memory.
@@ -266,7 +268,7 @@ While the main focus for now is to create an Asm and a VM, you should provide a 
 
 The specification requires a lot of constants, it would be tedious to define them in the subject every time they are mentioned.
 
-For this reason we provide a [config file](data/config.md) which includes all the required constants. Some of them are specific to the Asm, some others to the VM, the vast majority will be helpful to both.
+For this reason we provide a [config file](https://zone01normandie.org/git/root/public/src/branch/master/subjects/corewar/data/config.md) which includes all the required constants. Some of them are specific to the Asm, some others to the VM, the vast majority will be helpful to both.
 
 > While the file is language agnostic, it would be very easy to translate it to a specific language. We suggest you to do so in order to centralize the configuration, it will help to debug and extend easily your programs if needed.
 
@@ -341,7 +343,7 @@ The actual instructions start from there:
 
 #### Testing environment
 
-You will be provided with a [playground](data/playground.zip) containing:
+You will be provided with a [playground](https://zone01normandie.org/git/root/public/src/branch/master/subjects/corewar/data/playground.zip) containing:
 
 - A VM and an Assembler binaries to use as references.
 - A Dockerfile to run the binaries in a container.
