@@ -1,2 +1,6 @@
 asm_prgrm
 vm_prgrm
+tests/testRes/
+tests/asm/expected
+tests/vm/basic-commands-expected
+tests/vm/players-expected
