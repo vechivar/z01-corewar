@@ -13,9 +13,9 @@ Students have to write three different parts :
 
 ## How to use ?
 
-./compile.sh to compile both programs.
-./asm_prgrm "filename.s" to compile binary from a player's program
-./vm_prgrm "player1.cor" "player2.cor" ["player3.cor"] ["player4.cor"] [-d N -v -x]
+`./compile.sh` to compile both programs.
+`./asm_prgrm "filename.s"` to compile binary from a player's program
+`./vm_prgrm "player1.cor" "player2.cor" ["player3.cor"] ["player4.cor"] [-d N -v -x]`
     -d N option to stop the game after N cycles
     -v option to visualize game state every cycle
     -x option for a display closer to reference vm output.
