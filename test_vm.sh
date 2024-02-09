@@ -9,6 +9,7 @@
 # vm/players-expected contains expected results, also generated from reference program 
 
 
+# run test using several time the same player
 # arguments : (filepath) (command arguments) (players count)
 function test_basic_playercount() {
     path=$1
@@ -39,6 +40,7 @@ function test_basic_playercount() {
     fi
 }
 
+# run test with 2, 3 and 4 times the same player, using given arguments
 # arguments : (filepath) (command arguments)
 function test_basic () {
     test_basic_playercount "$1" "$2" 2
@@ -46,7 +48,8 @@ function test_basic () {
     test_basic_playercount "$1" "$2" 4
 }
 
-#arguments: (player1 path) (player2 path) (command arguments) (output extention)
+# make player1 and player2 fight against each other, using given arguments. output extension to identify test name
+# arguments: (player1 path) (player2 path) (command arguments) (output extention)
 function test_players() {
     p1Path=$1
     p2Path=$2
@@ -127,6 +130,7 @@ echo "Testing special programs" >> $TEST_RES
 echo "---------------------" >> $TEST_RES
 
 
+# produce special programs expected files
 if [ ! -d "vm/special-expected" ]; then
     mkdir vm/special-expected
     echo "Producing expected results from vm_ref for special programs. This might take some time..."
@@ -158,6 +162,7 @@ echo "---------------------" >> $TEST_RES
 
 echo "Testing complex programs"
 
+# produce players match expected files
 if [ ! -d "vm/players-expected" ]; then
     mkdir vm/players-expected
     echo "Producing expected results from vm_ref for players programs. This might take some time..."
@@ -173,6 +178,7 @@ if [ ! -d "vm/players-expected" ]; then
     done
 fi
 
+# testing players program with different arguments
 for f1 in $(ls vm/players); do
     for f2 in $(ls vm/players); do
         p1=vm/players/$f1
