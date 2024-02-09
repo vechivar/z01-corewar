@@ -9,7 +9,7 @@ The subject consists of detailed rules to implement a version of Corewar, a game
 Students have to write three different parts :
 - an asm program, able to compile a player's program into a binary file ready to be utilized (implemented in the asm folder)
 - a vm program, able to execute a game between given players (implemented in the vm folder)
-- an assembler program, able to beat a very basic opponent (implemented in the vechivar.s file)
+- an assembler program, able to beat a very basic opponent (implemented in the players/vechivar.s file)
 
 ## How to use ?
 
