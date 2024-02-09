@@ -41,9 +41,9 @@ function test_basic_playercount() {
 
 # arguments : (filepath) (command arguments)
 function test_basic () {
-    for (( i=2; i<=4; i++ )); do 
-        test_basic_playercount "$1" "$2" "$i"
-    done
+    test_basic_playercount "$1" "$2" 2
+    test_basic_playercount "$1" "$2" 3
+    test_basic_playercount "$1" "$2" 4
 }
 
 #arguments: (player1 path) (player2 path) (command arguments) (output extention)
@@ -71,19 +71,6 @@ function test_players() {
     else
         rm testRes/vm/${name1}_${name2}_${outputExt}
     fi
-
-    #     echo -e "Testing ${name1}_${name2}" >> $TEST_RES
-    # ./../vm_prgrm vm/players/${f1} vm/players/${f2} -x 2>/dev/null > testRes/vm/${name1}_${name2}_full
-    # diff=$(diff "vm/players-expected/${name1}_${name2}_full" "testRes/vm/${name1}_${name2}_full")
-    # if [ ! -z "$diff" ]; then
-    #     echo -e "--> FAILED" >> $TEST_RES
-    #     echo -e "Test failed for ${name1}_${name2}_full"
-    #     echo -e "$diff" > testRes/vm/${name1}_${name2}_full.diff
-    # else
-    #     rm testRes/vm/${name1}_${name2}_full
-    # fi
-
-
 }
 
 echo "Compiling programs"
