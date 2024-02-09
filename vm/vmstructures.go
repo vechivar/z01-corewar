@@ -31,17 +31,25 @@ type Arena_ struct {
 	LastModified [cw.MEM_SIZE]int  // id du joueur ayant modifié la valeur en dernier (pour l'impression)
 }
 
-var PlayerDatas []PlayerData // liste des joueurs
-var MaxCycle int             // argument -d du programme
-var VisualMode = false       // argument -v du programme
+var (
+	PlayerDatas       []PlayerData // liste des joueurs
+	MaxCycle          int          // argument -d du programme
+	VisualMode        = false      // argument -v du programme
+	PerfectOutputMode = false      // argument -x du programme, utilisé pour les tests
+)
 
-var Arena Arena_        // arène
-var Processes []Process // liste des processus en cours d'exécution
+var (
+	Arena     Arena_    // arène
+	Processes []Process // liste des processus en cours d'exécution
+)
 
-var LastAlive int      // id du dernier joueur à avoir reçu un live
-var CurrentCycle int   // cycle actuel
-var CycleToDie int     // nombre de cycles entre deux check d'élimination des processus
-var LifeCheckCount int // nombre de check exécutés sans avoir baissé CycleToDie
-var AliveCount int     // nombre de live exécutés depuis le dernier check
+var (
+	LastAlive      int // id du dernier joueur à avoir reçu un live
+	CurrentCycle   int // cycle actuel
+	CycleToDie     int // nombre de cycles entre deux check d'élimination des processus
+	LifeCheckCount int // nombre de check exécutés sans avoir baissé CycleToDie
+	AliveCount     int // nombre de live exécutés depuis le dernier check
+	lastCheckCycle int // dernier cycle où le check a été effectué
+)
 
 var Colors []string = []string{"\033[37m", "\033[31m", "\033[32m", "\033[33m", "\033[34m"} // couleurs à utiliser pour les joueurs

@@ -1,11 +1,12 @@
 package corewar
 
 import (
-	cw "corewar"
 	"fmt"
 	"os"
 	"strconv"
 	"strings"
+
+	cw "corewar"
 )
 
 func ReadInput() {
@@ -30,10 +31,12 @@ func ReadInput() {
 			}
 		} else if os.Args[i] == "-v" {
 			VisualMode = true
+		} else if os.Args[i] == "-x" {
+			PerfectOutputMode = true
 		} else {
 			playerFiles = append(playerFiles, os.Args[i])
 			if strings.Split(os.Args[i], ".")[len(strings.Split(os.Args[i], "."))-1] != "cor" {
-				Exit("Invalid file format. Only .cor files are allowed")
+				Exit(os.Args[i] + " invalid file format. Only .cor files are allowed")
 			}
 		}
 		i++

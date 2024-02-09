@@ -1,8 +1,9 @@
 package corewar
 
 import (
-	cw "corewar"
 	"fmt"
+
+	cw "corewar"
 )
 
 // voir la doc pour les buts des fonctions
@@ -80,28 +81,29 @@ func Ldi(proc *Process) int {
 	argsTypes := GetArgsTypes(GetArenaValue(proc.Pc + 1))
 
 	if CheckExpectedArgsTypes(proc.LoadedCmd, argsTypes) {
-		argsValues := GetArgumentsValues(argsTypes, false, proc.Pc+2)
+		argsValues := GetArgumentsValues(argsTypes, true, proc.Pc+2)
 
-		invalid, val1 := CalculateArgValue(argsTypes[0], argsValues[0], *proc, false)
+		invalid, val1 := CalculateArgValue(argsTypes[0], argsValues[0], *proc, true)
 		if invalid {
-			return 1 + ArgSize(argsTypes, false)
+			return 1 + ArgSize(argsTypes, true)
 		}
 		invalid, val2 := CalculateArgValue(argsTypes[1], argsValues[1], *proc, false)
 		if invalid {
-			return 1 + ArgSize(argsTypes, false)
+			return 1 + ArgSize(argsTypes, true)
 		}
 
 		if CheckRegId(argsValues[2]) {
 			if proc.LoadedCmd == 10 {
 				// ldi
+				// proc.Registers[argsValues[2]] = BytesToInt(GetArenaValues(proc.Pc+(val1+val2)%cw.IDX_MOD, cw.REG_SIZE))
 				proc.Registers[argsValues[2]] = BytesToInt(GetArenaValues(proc.Pc+(val1+val2)%cw.IDX_MOD, cw.REG_SIZE))
 			} else {
-				//lldi
+				// lldi
 				proc.Registers[argsValues[2]] = BytesToInt(GetArenaValues(proc.Pc+val1+val2, cw.REG_SIZE))
 			}
 		}
 	}
-	return 1 + ArgSize(argsTypes, false)
+	return 1 + ArgSize(argsTypes, true)
 }
 
 func Sti(proc *Process) int {
@@ -138,14 +140,17 @@ func Fork(proc *Process) int {
 
 	if proc.LoadedCmd == 12 {
 		// fork
-		newPc = proc.Pc + arg%cw.IDX_MOD
+		newPc = (proc.Pc + arg%cw.IDX_MOD) % cw.MEM_SIZE
 	} else {
 		// lfork
-		newPc = proc.Pc + arg
+		newPc = (proc.Pc + arg) % cw.MEM_SIZE
 	}
 
 	newProc := *proc
 	newProc.Pc = newPc
+	newProc.IsAlive = false
+	newProc.LoadedCmd = GetArenaValue(newPc)                    // Charge la commande suivante
+	_, newProc.RemainingCycles = GetCmdDatas(newProc.LoadedCmd) // Charge
 
 	Processes = append(Processes, newProc)
 
@@ -206,9 +211,9 @@ func Logical(proc *Process) int {
 			switch proc.LoadedCmd {
 			case 6: // and
 				proc.Registers[argsValues[2]] = val1 & val2
-			case 7: //or
+			case 7: // or
 				proc.Registers[argsValues[2]] = val1 | val2
-			case 8: //xor
+			case 8: // xor
 				proc.Registers[argsValues[2]] = val1 ^ val2
 			}
 			proc.Carry = proc.Registers[argsValues[2]] == 0

@@ -1,10 +1,11 @@
 package corewar
 
 import (
-	cw "corewar"
 	"fmt"
 	"os"
 	"strings"
+
+	cw "corewar"
 )
 
 // Vérifie que x est un indice de registre valide.
@@ -58,6 +59,9 @@ func CheckExpectedArgsTypes(opcode byte, argsTypes [3]byte) bool {
 		expected = []string{"2", "0", "0"}
 	case 16:
 		expected = []string{"1", "0", "0"}
+	default:
+		fmt.Println("Something went wrong : invalid opcode in CheckExpectedArgsTypes")
+		os.Exit(1)
 	}
 
 	for i := 0; i < 3; i++ {

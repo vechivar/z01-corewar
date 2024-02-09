@@ -1,35 +1,41 @@
 package corewar
 
 import (
-	cw "corewar"
 	"fmt"
 	"os"
 	"strings"
+
+	cw "corewar"
 )
 
-var debugMode = false // true pour afficher l'état quand une commande est exécutée
-var printCycle = false
+var (
+	debugMode  = false // true pour afficher l'état quand une commande est exécutée
+	printCycle = false
+)
 
 // Fait tourner la machine virtuelle
 func RunVm() {
 	InitVm()
 
 	CurrentCycle = 1
-	lastCheckCycle := 0
+	lastCheckCycle = 0
 
 	for MaxCycle == 0 || CurrentCycle < MaxCycle {
-		if CurrentCycle-lastCheckCycle == CycleToDie+1 {
-			LiveCheck()
-			lastCheckCycle = CurrentCycle
-		}
 		RunCycle()
 		if VisualMode || (debugMode && printCycle) {
-			fmt.Printf("Cycle %d || Cycles before life check: %d || Cycles between checks: %d", CurrentCycle, CycleToDie-(CurrentCycle-lastCheckCycle), CycleToDie)
+			fmt.Printf("Cycle %d || Cycles before life check: %d || Cycles between checks: %d", CurrentCycle, CycleToDie-(CurrentCycle-lastCheckCycle-1), CycleToDie)
 			if LastAlive != 0 {
-				fmt.Printf(" || "+Colors[LastAlive]+"Last alive : %d"+Colors[0], LastAlive)
+				fmt.Print(" || ")
+				PrintColor(LastAlive)
+				fmt.Printf("Last alive: %d", LastAlive)
+				PrintColor(0)
 			}
 			fmt.Print("\n")
 			Visualize()
+		}
+		if CurrentCycle-lastCheckCycle == CycleToDie+1 {
+			LiveCheck()
+			lastCheckCycle = CurrentCycle
 		}
 		CurrentCycle++
 	}
@@ -125,6 +131,7 @@ func LiveCheck() {
 func EndGame() {
 	if MaxCycle != 0 && !VisualMode {
 		PrintMemory()
+		fmt.Println()
 	}
 	fmt.Printf("cycle %d: ", CurrentCycle)
 	if LastAlive == 0 {

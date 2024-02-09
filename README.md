@@ -13,4 +13,33 @@ Students have to write three different parts :
 
 ## How to use ?
 
-Execute compile.sh to compile both programs.
+./compile.sh to compile both programs.
+./asm_prgrm "filename.s" to compile binary from a player's program
+./vm_prgrm "player1.cor" "player2.cor" ["player3.cor"] ["player4.cor"] [-d N -v -x]
+    -d N option to stop the game after N cycles
+    -v option to visualize game state every cycle
+    -x option for a display closer to reference vm output.
+    This option should also be used when outputing in a file instead of terminal.
+
+## Tests
+
+test_asm.sh and test_vm.sh contain basic scripts for automated testing of asm and vm.
+tests folder contains all files needed for tests, including asm_ref and vm_ref programs provided in the subject. These programs can be downloaded from https://zone01normandie.org/git/root/public/src/branch/master/subjects/corewar/data > playground.zip rather than being trusted and executed from this repository. Total size for exepected files is around 600MB.
+
+### Asm tests
+
+tests/asm contains a valid and invalid folder. Invalid files are expected to not output anything, whereas valid files are expected to produce an output strictly equal to the asm_ref output.
+
+### Vm tests
+
+All vm tests are expected to produce an output (almost...) identical to the vm_ref program. -x option is mandatory.
+
+tests/vm/basic-commands contains very simple programs to test individual commands. All those programs are tested in a 2, 3 and 4 players context for 55 cycles. -v option is used to strictly control memory behaviour.
+
+tests/vm/special contains files that need specific command lines, for example tests for fork and lfork commands that need more than 55 cycles to execute.
+
+tests/vm/players contains players to run against each others. Each match is tested with :
+    - no parameters (normal game)
+    - visualize with 2000 cycles deadline
+    - 50000 cycles deadline
+    - 10000 cycles deadline
